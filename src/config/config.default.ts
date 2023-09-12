@@ -8,6 +8,9 @@ export default {
   koa: {
     port: 8001,
   },
+  bodyParser: {
+    jsonLimit: '11mb'
+  },
   // 模板渲染
   view: {
     mapping: {
