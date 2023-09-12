@@ -1,7 +1,7 @@
 {
   "name": "cool-admin",
   "version": "6.0.0",
-  "description": "一个项目用COOL就够了",
+  "description": "Q支信息号特征记录管理系统",
   "private": true,
   "dependencies": {
     "@cool-midway/cache-manager-fs-hash": "^6.0.0",

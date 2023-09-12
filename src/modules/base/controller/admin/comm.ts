@@ -3,7 +3,7 @@ import {
   CoolController,
   BaseController,
   CoolUrlTag,
-  TagTypes,
+  TagTypes, CoolCommException,
 } from '@cool-midway/core';
 import { BaseSysUserEntity } from '../../entity/sys/user';
 import { BaseSysLoginService } from '../../service/sys/login';
@@ -11,6 +11,8 @@ import { BaseSysPermsService } from '../../service/sys/perms';
 import { BaseSysUserService } from '../../service/sys/user';
 import { Context } from '@midwayjs/koa';
 import { CoolFile } from '@cool-midway/file';
+import { AttachmentService } from "../../../signal/service/attachment";
+import * as _ from 'lodash';
 
 /**
  * Base 通用接口 一般写不需要权限过滤的接口
@@ -36,6 +38,9 @@ export class BaseCommController extends BaseController {
 
   @Inject()
   coolFile: CoolFile;
+
+  @Inject()
+  attachmentService: AttachmentService;
 
   /**
    * 获得个人信息
@@ -70,6 +75,51 @@ export class BaseCommController extends BaseController {
   @Post('/upload', { summary: '文件上传' })
   async upload() {
     return this.ok(await this.coolFile.upload(this.ctx));
+  }
+
+
+  /**
+   * 文件上传
+   */
+  @Post('/uploadOscCsv', { summary: '文件上传' })
+  async uploadOscCsv() {
+
+    if (_.isEmpty(this.ctx.files)) {
+      throw new CoolCommException('上传文件为空');
+    }
+
+    const path = await this.coolFile.upload(this.ctx);
+
+    const file = this.ctx.files[0];
+
+    // @ts-ignore
+    const att_name = path?.split('/')?.pop(); // 含后缀名
+    const att_oldName = file.filename; // 含后缀名
+    const att_path = path;
+    // const att_size = file?.size;
+    // const att_type = file?.type;
+    // const att_createUserId = ;
+    const att_size = 123;
+    const att_type = file.mimeType;
+    const att_createUserId = 1;
+
+    const attInfo = {
+      name: att_name,
+      oldName: att_oldName,
+      path: att_path,
+      size: att_size,
+      type: att_type,
+      createUserId: att_createUserId,
+      deleted: 0,
+    }
+
+    // 解析附件内容，然后存储在表biz_firearm_signal_feature.data字段中
+    const attRes = await this.attachmentService.add(attInfo)
+
+    return this.ok({
+      ...attInfo,
+      ...attRes
+    });
   }
 
   /**

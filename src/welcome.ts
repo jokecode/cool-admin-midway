@@ -15,7 +15,7 @@ export class WelcomeController {
   @Get('/')
   public async welcome() {
     await this.ctx.render('welcome', {
-      text: 'HELLO COOL-ADMIN 6.x 一个项目用COOL就够了！！！',
+      text: 'Q支信号特征记录系统-服务端',
     });
   }
 }
