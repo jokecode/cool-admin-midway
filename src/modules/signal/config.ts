@@ -6,7 +6,7 @@ import { ModuleConfig } from '@cool-midway/core';
 export default () => {
   return {
     // 模块名称
-    name: '信号特征管理',
+    name: 'signal',
     // 模块描述
     description: '信号特征管理，主要管理枪械基本信息和信号特征数据等',
     // 中间件，只对本模块有效

@@ -1,5 +1,6 @@
-import { BaseEntity } from '@cool-midway/core';
-import { Column, Entity } from 'typeorm';
+import {BaseEntity} from '@cool-midway/core';
+import {Column, Entity} from 'typeorm';
+import {Rule, RuleType} from "@midwayjs/validate";
 
 /**
  * Q支信号特征信息表
@@ -7,72 +8,89 @@ import { Column, Entity } from 'typeorm';
 @Entity('biz_firearm_signal_feature')
 export class FeatureEntity extends BaseEntity {
 
-  @Column({ comment: '文件编号', unique: true })
-  fileCode: string;
+    @Rule(RuleType.string().required())
+    @Column({comment: '文件编号', unique: true})
+    fileCode: string;
 
-  @Column({ comment: 'Q型' })
-  gunType: string;
+    @Rule(RuleType.string().required())
+    @Column({comment: 'Q型'})
+    gunType: string;
 
-  @Column({ comment: 'Q编号' })
-  gunCode: string;
+    @Rule(RuleType.string().required())
+    @Column({comment: 'Q编号'})
+    gunCode: string;
 
-  @Column({ comment: 'Q寿命', nullable: true })
-  gunLifespan: string;
+    @Column({comment: 'Q寿命', nullable: true})
+    gunLifespan: string;
 
-  @Column({ comment: '外挂', nullable: true })
-  externalPlugIn: string;
+    @Column({comment: '外挂', nullable: true})
+    externalPlugIn: string;
 
-  @Column({ comment: '信号源' })
-  signalSource: string;
+    @Rule(RuleType.string().required())
+    @Column({comment: '信号源'})
+    signalSource: string;
 
-  @Column({ comment: '安装位置', nullable: true })
-  installPosition: string;
+    @Column({comment: '安装位置', nullable: true})
+    installPosition: string;
 
-  @Column({ comment: '安装方向', nullable: true })
-  installDirection: string;
+    @Column({comment: '安装方向', nullable: true})
+    installDirection: string;
 
-  @Column({ comment: '连接方式', nullable: true })
-  connectionMethod: string;
+    @Column({comment: '连接方式', nullable: true})
+    connectionMethod: string;
 
-  @Column({ comment: '动作', nullable: true })
-  action: string;
+    @Column({comment: '动作', nullable: true})
+    action: string;
 
-  @Column({ comment: '孔径', nullable: true })
-  aperture: string;
+    @Column({comment: '孔径', nullable: true})
+    aperture: string;
 
-  @Column({ comment: '射弹数量', nullable: true })
-  firedNumber: string;
+    @Column({comment: '射弹数量', nullable: true})
+    firedNumber: string;
 
-  @Column({ comment: '备注', nullable: true })
-  remark: string;
+    @Column({comment: '备注', nullable: true})
+    remark: string;
 
-  @Column({ comment: '备注1', nullable: true })
-  remark1: string;
+    @Column({comment: '备注1', nullable: true})
+    remark1: string;
 
-  @Column({ comment: '备注2', nullable: true })
-  remark2: string;
+    @Column({comment: '备注2', nullable: true})
+    remark2: string;
 
-  @Column({ comment: '备注3', nullable: true })
-  remark3: string;
+    @Column({comment: '备注3', nullable: true})
+    remark3: string;
 
-  @Column({ comment: '备注4', nullable: true })
-  remark4: string;
+    @Column({comment: '备注4', nullable: true})
+    remark4: string;
 
-  @Column({ comment: '备注5', nullable: true })
-  remark5: string;
+    @Column({comment: '备注5', nullable: true})
+    remark5: string;
 
-  @Column({ comment: '备注6', nullable: true })
-  remark6: string;
+    @Column({comment: '备注6', nullable: true})
+    remark6: string;
 
-  @Column({ comment: '备注7', nullable: true })
-  remark7: string;
+    @Column({comment: '备注7', nullable: true})
+    remark7: string;
 
-  @Column({ comment: '附件ID', type: 'int', nullable: true })
-  attachmentId: number;
+    @Column({comment: '示波器文件ID', type: 'int', nullable: true})
+    attachmentId: number;
 
-  @Column({ comment: '示波器csv数据', type: "json", nullable: true })
-  data: object;
+    @Column({comment: '示波器文件名称', nullable: true})
+    attachmentName: string;
+
+    @Column({comment: '示波器文件可访问地址', nullable: true})
+    attachmentPath: string;
+
+    @Column({comment: '示波器csv数据', type: "json", nullable: true})
+    data: object;
+
+    @Column({comment: '创建者ID', type: "int", nullable: true})
+    createUserId: number;
+
+    @Column({comment: '创建者ID', type: "int", nullable: true})
+    updateUserId: number;
 }
+
 // id:					        ID
 // fileCode:				    文件编号
 // gunType:			        Q型

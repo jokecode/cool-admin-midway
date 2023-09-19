@@ -1,17 +1,28 @@
-import { FeatureEntity } from '../../entity/feature';
-import { BaseController, CoolController } from '@cool-midway/core';
-import {ALL, Body, Get, Inject, Post, Provide, Query} from "@midwayjs/decorator";
-import { FeatureService } from "../../service/feature";
+import {FeatureEntity} from '../../entity/feature';
+import {BaseController, CoolController} from '@cool-midway/core';
+import {
+  ALL,
+  Body,
+  Get,
+  Inject,
+  Post,
+  Provide,
+  Query,
+} from "@midwayjs/decorator";
+import {FeatureService} from "../../service/feature";
 import {Context} from "vm";
+import {Validate} from "@midwayjs/validate";
+
+// import {File} from "buffer";
 
 /**
  * 测试
  */
 @Provide()
 @CoolController({
-  api: ['add', 'delete', 'update', 'info', 'page', 'list'],
+  api: ['delete', 'update', 'info', 'page', 'list'],
   entity: FeatureEntity,
-  // service: FeatureService,
+  service: FeatureService,
   // 向表插入当前登录用户ID
   insertParam: (ctx => {
     return {
@@ -23,7 +34,7 @@ import {Context} from "vm";
   pageQueryOp: {
     // 让title字段支持模糊查询
     // keyWordLikeFields: ['fileCode', 'remark'],
-    fieldEq: ['gunType', 'gunCode', 'gunLifespan', 'externalPlugIn', 'signalSource', 'installPosition', 'installDirection', 'connectionMethod', 'action',  'aperture', 'firedNumber', 'remark1', 'remark2', 'remark3', 'remark4', 'remark5', 'remark6', 'remark7'],
+    fieldEq: ['gunType', 'gunCode', 'gunLifespan', 'externalPlugIn', 'signalSource', 'installPosition', 'installDirection', 'connectionMethod', 'action', 'aperture', 'firedNumber', 'remark1', 'remark2', 'remark3', 'remark4', 'remark5', 'remark6', 'remark7'],
     // select: ['fileCode', 'gunType', 'gunCode', 'gunLifespan', 'externalPlugIn', 'signalSource', 'installPosition', 'installDirection', 'connectionMethod', 'action',  'aperture', 'firedNumber', 'remark', 'remark1', 'remark2', 'remark3', 'remark4', 'remark5', 'remark6', 'remark7'],
 
     where: async (ctx: Context) => {
@@ -33,10 +44,10 @@ import {Context} from "vm";
       const remark = data?.remark;
       const whereList = [];
       if (fileCode) {
-        whereList.push(['fileCode LIKE :fileCode', { fileCode: `%${fileCode}%` }]);
+        whereList.push(['fileCode LIKE :fileCode', {fileCode: `%${fileCode}%`}]);
       }
       if (remark) {
-        whereList.push(['remark LIKE :remark', { remark: `%${remark}%` }]);
+        whereList.push(['remark LIKE :remark', {remark: `%${remark}%`}]);
       }
       return whereList;
     },
@@ -61,12 +72,18 @@ export class AdminFeatureController extends BaseController {
   @Inject()
   featureService: FeatureService;
 
+  @Post('/add', {summary: '新增'})
+  @Validate()
+  async add() {
+    return this.ok(await this.featureService.add({userId: this.baseCtx.admin.userId}));
+  }
+
   /**
    * TODO
    * 模板下载-示波器数据导入模板
    *
    */
-  @Post('/downloadTemplate', { summary: '模板下载-示波器数据导入模板' })
+  @Post('/downloadTemplate', {summary: '模板下载-示波器数据导入模板'})
   async downloadTemplate(@Body('id') id: number, @Body('type') type: number) {
     await this.featureService.downloadTemplate(id, type);
     this.ok();
@@ -76,7 +93,7 @@ export class AdminFeatureController extends BaseController {
    * TODO
    * 导入示波器数据
    */
-  @Get('/importOscCsv', { summary: '导入示波器数据' })
+  @Get('/importOscCsv', {summary: '导入示波器数据'})
   async importOscCsv(@Query(ALL) params: any) {
     return this.ok(await this.featureService.importOscCsv(params));
   }
@@ -86,7 +103,7 @@ export class AdminFeatureController extends BaseController {
    * 图像对比
    *
    */
-  @Post('/imageComparison', { summary: '图像对比' })
+  @Post('/imageComparison', {summary: '图像对比'})
   async imageComparison(@Body('id') id: number, @Body('type') type: number) {
     await this.featureService.imageComparison(id, type);
     this.ok();
