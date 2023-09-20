@@ -3,6 +3,7 @@ import {BaseController, CoolController} from '@cool-midway/core';
 import {
   ALL,
   Body,
+  Config,
   Get,
   Inject,
   Post,
@@ -12,6 +13,7 @@ import {
 import {FeatureService} from "../../service/feature";
 import {Context} from "vm";
 import {Validate} from "@midwayjs/validate";
+import {CoolFileConfig} from "../../../../../packages/file/src";
 
 // import {File} from "buffer";
 
@@ -72,6 +74,9 @@ export class AdminFeatureController extends BaseController {
   @Inject()
   featureService: FeatureService;
 
+  @Config('cool.file')
+  config: CoolFileConfig;
+
   @Post('/add', {summary: '新增'})
   @Validate()
   async add() {
@@ -83,10 +88,9 @@ export class AdminFeatureController extends BaseController {
    * 模板下载-示波器数据导入模板
    *
    */
-  @Post('/downloadTemplate', {summary: '模板下载-示波器数据导入模板'})
-  async downloadTemplate(@Body('id') id: number, @Body('type') type: number) {
-    await this.featureService.downloadTemplate(id, type);
-    this.ok();
+  @Get('/downloadTemplate', {summary: '模板下载-示波器数据导入模板'})
+  async downloadTemplate() {
+    return this.ok(`${this.config.domain}/public/template/2302230004.csv`);
   }
 
   /**

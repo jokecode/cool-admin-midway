@@ -254,11 +254,6 @@ export class FeatureService extends BaseService {
     // console.log(featureResponseData, attResponseData)
   }
 
-  // TODO 模板下载-示波器数据导入模板
-  async downloadTemplate(id: number, type: number) {
-
-  }
-
   // TODO 导入示波器数据
   async importOscCsv(params: any) {
 
