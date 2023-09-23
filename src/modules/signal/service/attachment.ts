@@ -23,19 +23,9 @@ export class AttachmentService extends BaseService {
   /**
    * 执行sql分页
    */
-  async sqlPage(query) {
-    return this.sqlRenderPage(
-      'select * from biz_signal_attachment ORDER BY id ASC',
-      query,
-      false
-    );
+  async getListByIds(ids: []) {
+    // SELECT t.* FROM biz_signal_attachment t WHERE t.id IN (1, 2)
+    return this.attachmentEntity.createQueryBuilder('att').where('att.id IN (:ids)', {　ids: ids }).getMany();
   }
 
-  /**
-   * 执行entity分页
-   */
-  async entityPage(query) {
-    const find = this.attachmentEntity.createQueryBuilder();
-    return this.entityRenderPage(find, query);
-  }
 }

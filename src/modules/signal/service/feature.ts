@@ -12,7 +12,7 @@ import {v1 as uuid} from 'uuid';
 const Papa = require('papaparse');
 const fs = require('fs');
 /**
- * 商品示例
+ * 信号特征管理
  */
 @Provide()
 export class FeatureService extends BaseService {
@@ -50,7 +50,6 @@ export class FeatureService extends BaseService {
       const file = this.ctx.files[0];
       const parsedData: object = await this.readCSV(file.data);
 
-      // console.log('parsedData=======>', parsedData)
       const extension = file.filename.split('.').pop();
 
       const attachmentEntity = new AttachmentEntity();
@@ -67,7 +66,6 @@ export class FeatureService extends BaseService {
       const attRes = await queryRunner.manager.insert(AttachmentEntity, attachmentEntity)
       // 有时候我们需要在数据进行修改动作之后，对它进行一些处理，比如：修改完数据之后将它放入队列或者ElasticSearch
       // await this.modifyAfter(attSaveData, "add");
-      console.log('attRes====>', attRes)
       const [attResMap] = attRes.generatedMaps
       attResponseData = {
         ...attachmentEntity,
@@ -76,8 +74,6 @@ export class FeatureService extends BaseService {
         updateTime: attResMap.updateTime,
         deleted: attResMap.deleted
       }
-
-      console.log('attRes====>', attRes)
     }
 
     const featureEntity = new FeatureEntity()
@@ -112,7 +108,6 @@ export class FeatureService extends BaseService {
     // await this.modifyBefore(featureSaveData, "add");
     const featureRes = await queryRunner.manager.insert(FeatureEntity, featureEntity)
     // await this.modifyAfter(featureSaveData, "add");
-    console.log('featureRes====>', featureRes)
     const [featureResMap] = featureRes.generatedMaps
     const featureResponseData = {
       ...featureEntity,
@@ -145,55 +140,32 @@ export class FeatureService extends BaseService {
     if (!fileIsEmpty) {
       // 保存文件
       const path: string = <string>await this.coolFile.upload(this.ctx);
-
       const file = this.ctx.files[0];
+
+      const parsedData: object = await this.readCSV(file.data);
+
       const extension = file.filename.split('.').pop();
-      const att_name = (fields['key'] || `${uuid()}.${extension}`);
-      const att_oldName: string = file.filename; // 含后缀名
-      const att_path: string = path;
-      const att_size = fields['fileSize'];
-      const att_type = file.mimeType;
-      const att_userId = param.userId;
 
-      // const attInfo = new AttachmentEntity(
-      //     null,
-      //     att_name,
-      //     att_oldName,
-      //     att_path,
-      //     att_size,
-      //     att_type,
-      //     att_userId,
-      //     0,
-      //     {},
-      //     currentDate,
-      //     currentDate)
-      // 保存附件信息到数据库
-      // const attRes = await queryRunner.manager.insert(AttachmentEntity, attInfo)
+      const attachmentEntity = new AttachmentEntity();
+      attachmentEntity.name = (fields['key'] || `${uuid()}.${extension}`);
+      attachmentEntity.oldName = file.filename;  // 含后缀名
+      attachmentEntity.path = path;
+      attachmentEntity.size = fields['fileSize'];
+      attachmentEntity.type = file.mimeType;
+      attachmentEntity.createUserId = param.userId;
+      attachmentEntity.data = parsedData;
 
-      const attSaveData = {
-        name: att_name,
-        oldName: att_oldName,
-        path: att_path,
-        size: att_size,
-        type: att_type,
-        createUserId: att_userId,
-        data: {},
-      }
-
-      // await this.modifyBefore(attSaveData, "update");
-      const attRes = await queryRunner.manager.insert(AttachmentEntity, attSaveData)
-      // await this.modifyAfter(attSaveData, "update");
-      console.log('attRes====>', attRes)
+      // await this.modifyBefore(attachmentEntity, "update");
+      const attRes = await queryRunner.manager.insert(AttachmentEntity, attachmentEntity)
+      // await this.modifyAfter(attachmentEntity, "update");
       const [attResMap] = attRes.generatedMaps
       attResponseData = {
-        ...attSaveData,
+        ...attachmentEntity,
         id: attResMap.id,
-        createTime: attResMap.updateTime,
+        createTime: attResMap.createTime,
         updateTime: attResMap.updateTime,
         deleted: attResMap.deleted
       }
-
-      console.log('attRes====>', attRes)
     }
 
     const featureEntity = new FeatureEntity();
@@ -241,7 +213,6 @@ export class FeatureService extends BaseService {
     // const featureRes = await queryRunner.manager.upsert(FeatureEntity, featureSaveData, ['', '', 'primary-key'])
     const featureRes = await queryRunner.manager.update(FeatureEntity, featureEntity.id, featureEntity)
     // await this.modifyAfter(featureSaveData, "update");
-    console.log('featureRes====>', featureRes)
     const [featureResMap] = featureRes.generatedMaps
     const featureResponseData = {
       ...featureEntity
@@ -251,21 +222,6 @@ export class FeatureService extends BaseService {
       featureResponseData['createTime'] = featureResMap.updateTime
       featureResponseData['updateTime'] = featureResMap.updateTime
     }
-    // console.log(featureResponseData, attResponseData)
-  }
-
-  // TODO 导入示波器数据
-  async importOscCsv(params: any) {
-
-  }
-
-  // TODO 图像对比
-  async imageComparison(id: number, type: number) {
-
-  }
-
-  saveFeatureAndAttByMode () {
-
   }
 
   /**
@@ -288,7 +244,7 @@ export class FeatureService extends BaseService {
       Papa.parse(csvData, {
         header: true,
         complete: results => {
-          console.log('Complete', results.data.length, 'records.');
+          console.log('readCSV Complete', results.data.length, 'records.');
           resolve(results.data);
         }
       });

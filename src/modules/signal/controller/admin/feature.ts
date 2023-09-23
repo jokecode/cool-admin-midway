@@ -1,14 +1,11 @@
 import {FeatureEntity} from '../../entity/feature';
 import {BaseController, CoolController} from '@cool-midway/core';
 import {
-  ALL,
-  Body,
   Config,
   Get,
   Inject,
   Post,
   Provide,
-  Query,
 } from "@midwayjs/decorator";
 import {FeatureService} from "../../service/feature";
 import {Context} from "vm";
@@ -97,9 +94,9 @@ export class AdminFeatureController extends BaseController {
    * TODO
    * 导入示波器数据
    */
-  @Get('/importOscCsv', {summary: '导入示波器数据'})
-  async importOscCsv(@Query(ALL) params: any) {
-    return this.ok(await this.featureService.importOscCsv(params));
+  @Post('/importOscCsv', {summary: '导入示波器数据'})
+  async importOscCsv() {
+    return this.ok();
   }
 
   /**
@@ -108,8 +105,7 @@ export class AdminFeatureController extends BaseController {
    *
    */
   @Post('/imageComparison', {summary: '图像对比'})
-  async imageComparison(@Body('id') id: number, @Body('type') type: number) {
-    await this.featureService.imageComparison(id, type);
-    this.ok();
+  async imageComparison() {
+    return this.ok();
   }
 }
