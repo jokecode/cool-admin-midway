@@ -170,40 +170,39 @@ export class FeatureService extends BaseService {
 
     const featureEntity = new FeatureEntity();
     featureEntity.id = fields['id'];
-    featureEntity.fileCode = fields['fileCode'];
-    featureEntity.gunType = fields['gunType'];
-    featureEntity.gunCode = fields['gunCode'];
-    featureEntity.gunLifespan = fields['gunLifespan'];
-    featureEntity.externalPlugIn = fields['externalPlugIn'];
-    featureEntity.signalSource = fields['signalSource'];
-    featureEntity.installPosition = fields['installPosition'];
-    featureEntity.installDirection = fields['installDirection'];
-    featureEntity.connectionMethod = fields['connectionMethod'];
-    featureEntity.action = fields['action'];
-    featureEntity.aperture = fields['aperture'];
-    featureEntity.firedNumber = fields['firedNumber'];
-    featureEntity.remark = fields['remark'];
-    featureEntity.remark1 = fields['remark1'];
-    featureEntity.remark2 = fields['remark2'];
-    featureEntity.remark3 = fields['remark3'];
-    featureEntity.remark4 = fields['remark4'];
-    featureEntity.remark5 = fields['remark5'];
-    featureEntity.remark6 = fields['remark6'];
-    featureEntity.remark7 = fields['remark7'];
-    featureEntity.data = fields['data'];
-    featureEntity.updateUserId = param['userId'];
+    // featureEntity.fileCode = fields['fileCode'] || null; // 文件编号不允许修改
+    featureEntity.gunType = fields['gunType'] || null;
+    featureEntity.gunCode = fields['gunCode'] || null;
+    featureEntity.gunLifespan = fields['gunLifespan'] || null;
+    featureEntity.externalPlugIn = fields['externalPlugIn'] || null;
+    featureEntity.signalSource = fields['signalSource'] || null;
+    featureEntity.installPosition = fields['installPosition'] || null;
+    featureEntity.installDirection = fields['installDirection'] || null;
+    featureEntity.connectionMethod = fields['connectionMethod'] || null;
+    featureEntity.action = fields['action'] || null;
+    featureEntity.aperture = fields['aperture'] || null;
+    featureEntity.firedNumber = fields['firedNumber'] || null;
+    featureEntity.remark = fields['remark'] || null;
+    featureEntity.remark1 = fields['remark1'] || null;
+    featureEntity.remark2 = fields['remark2'] || null;
+    featureEntity.remark3 = fields['remark3'] || null;
+    featureEntity.remark4 = fields['remark4'] || null;
+    featureEntity.remark5 = fields['remark5'] || null;
+    featureEntity.remark6 = fields['remark6'] || null;
+    featureEntity.remark7 = fields['remark7'] || null;
+    featureEntity.data = fields['data'] || null;
+    featureEntity.updateUserId = param['userId'] || null;
+
     // 修改前的示波器文件信息
-    if (fields['attachmentId']) {
-      featureEntity.attachmentId = fields['attachmentId']
-      featureEntity.attachmentName = fields['attachmentName']
-      featureEntity.attachmentPath = fields['attachmentPath']
-    }
+    featureEntity.attachmentId = fields['attachmentId'] || null
+    featureEntity.attachmentName = fields['attachmentName'] || null
+    featureEntity.attachmentPath = fields['attachmentPath'] || null
 
     // 新上传的示波器文件信息
     if (!fileIsEmpty && attResponseData?.id) {
-      featureEntity.attachmentId = attResponseData?.id
-      featureEntity.attachmentName = attResponseData?.oldName
-      featureEntity.attachmentPath = attResponseData?.path
+      featureEntity.attachmentId = attResponseData?.id || null
+      featureEntity.attachmentName = attResponseData?.oldName || null
+      featureEntity.attachmentPath = attResponseData?.path || null
     }
 
     // TODO: 修改时，删除示波器文件，但是没有重新上传
