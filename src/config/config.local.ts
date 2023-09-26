@@ -25,8 +25,8 @@ export default {
         // 实体路径
         entities: ['**/modules/*/entity'],
         // 设置时区
-        timezone: '+08:00', // timezone 默认是用 UTC
-        dateStrings: false, // 官网url: https://midwayjs.org/docs/legacy/orm#%E5%85%B3%E4%BA%8E-mysql-%E6%97%B6%E9%97%B4%E5%88%97%E7%9A%84%E5%BD%93%E5%89%8D%E6%97%B6%E5%8C%BA%E5%B1%95%E7%A4%BA
+        // timezone: '+0800', // timezone 默认是用 UTC
+        // dateStrings: false, // 默认就是false 官网url: https://midwayjs.org/docs/legacy/orm#%E5%85%B3%E4%BA%8E-mysql-%E6%97%B6%E9%97%B4%E5%88%97%E7%9A%84%E5%BD%93%E5%89%8D%E6%97%B6%E5%8C%BA%E5%B1%95%E7%A4%BA
       },
     },
   },
