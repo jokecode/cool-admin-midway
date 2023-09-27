@@ -9,7 +9,7 @@ import { Context } from '@midwayjs/koa';
  */
 @Provide()
 @CoolController({
-  api: ['add', 'delete', 'update', 'info', 'page'],
+  api: ['add', 'delete', 'update', 'info', 'page', 'list'],
   entity: BaseSysParamEntity,
   service: BaseSysParamService,
   pageQueryOp: {

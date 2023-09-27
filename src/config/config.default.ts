@@ -9,7 +9,7 @@ export default {
     port: 8001,
   },
   bodyParser: {
-    jsonLimit: '11mb'
+    // jsonLimit: '11mb'
   },
   // 模板渲染
   view: {

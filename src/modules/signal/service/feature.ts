@@ -62,10 +62,10 @@ export class FeatureService extends BaseService {
       attachmentEntity.data = parsedData;
 
       // 有时候我们需要在数据进行修改动作之前，对它进行一些处理，比如：修改密码时，需要对密码进行加密，这时候我们可以使用modifyBefore方法来实现
-      // await this.modifyBefore(attSaveData, "add");
+      // await this.modifyBefore(attachmentEntity, "add");
       const attRes = await queryRunner.manager.insert(AttachmentEntity, attachmentEntity)
       // 有时候我们需要在数据进行修改动作之后，对它进行一些处理，比如：修改完数据之后将它放入队列或者ElasticSearch
-      // await this.modifyAfter(attSaveData, "add");
+      // await this.modifyAfter(attachmentEntity, "add");
       const [attResMap] = attRes.generatedMaps
       attResponseData = {
         ...attachmentEntity,
@@ -207,11 +207,11 @@ export class FeatureService extends BaseService {
 
     // TODO: 修改时，删除示波器文件，但是没有重新上传
 
-    // await this.modifyBefore(featureSaveData, "update");
+    // await this.modifyBefore(featureEntity, "update");
     // conflictPaths skipUpdateIfNoValuesChanged upsertType
     // const featureRes = await queryRunner.manager.upsert(FeatureEntity, featureSaveData, ['', '', 'primary-key'])
     const featureRes = await queryRunner.manager.update(FeatureEntity, featureEntity.id, featureEntity)
-    // await this.modifyAfter(featureSaveData, "update");
+    // await this.modifyAfter(featureEntity, "update");
     const [featureResMap] = featureRes.generatedMaps
     const featureResponseData = {
       ...featureEntity
