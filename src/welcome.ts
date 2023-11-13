@@ -15,7 +15,7 @@ export class WelcomeController {
   @Get('/')
   public async welcome() {
     await this.ctx.render('welcome', {
-      text: 'Q支信号特征记录系统-服务端',
+      text: '特征信号知识图谱系统-服务端',
     });
   }
 }
