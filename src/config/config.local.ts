@@ -1,4 +1,4 @@
-import { CoolConfig, MODETYPE } from "@cool-midway/core";
+import { CoolConfig, MODETYPE } from '@cool-midway/core';
 import { MidwayConfig } from '@midwayjs/core';
 
 /**
