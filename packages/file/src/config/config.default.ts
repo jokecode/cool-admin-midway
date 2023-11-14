@@ -11,7 +11,7 @@ export default {
       mode: MODETYPE.LOCAL,
       // 文件路径前缀 本地上传模式下 有效
       // domain: 'http://127.0.0.1:8001',
-      domain: 'http://127.0.0.1:8002',
+      domain: 'http://jsq_server:8002',
     } as CoolFileConfig,
   },
 };
