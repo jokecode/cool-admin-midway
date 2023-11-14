@@ -1,4 +1,4 @@
-import { CoolConfig } from '@cool-midway/core';
+import { CoolConfig, MODETYPE } from "@cool-midway/core";
 import { MidwayConfig } from '@midwayjs/core';
 
 /**
@@ -9,7 +9,7 @@ export default {
     dataSource: {
       default: {
         type: 'mysql',
-        host: '127.0.0.1',
+        host: 'mysql8',
         port: 3306,
         username: 'root',
         password: '123456',
@@ -33,5 +33,11 @@ export default {
   cool: {
     // 是否自动导入数据库，生产环境不建议开，用本地的数据库手动初始化
     initDB: false,
+    file: {
+      // 上传模式 本地上传或云存储
+      mode: MODETYPE.LOCAL,
+      // 本地上传 文件地址前缀
+      domain: 'http://jsq_server:8002',
+    },
   } as CoolConfig,
 } as MidwayConfig;

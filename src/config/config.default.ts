@@ -6,7 +6,8 @@ export default {
   // use for cookie sign key, should change to your own and keep security
   keys: 'cool-admin for node',
   koa: {
-    port: 8001,
+    // port: 8001,
+    port: 8002,
   },
   bodyParser: {
     // jsonLimit: '11mb'
@@ -35,7 +36,8 @@ export default {
       // 上传模式 本地上传或云存储
       mode: MODETYPE.LOCAL,
       // 本地上传 文件地址前缀
-      domain: 'http://127.0.0.1:8001',
+      // domain: 'http://127.0.0.1:8001',
+      domain: 'http://127.0.0.1:8002',
     },
   } as CoolConfig,
 } as MidwayConfig;

@@ -1,4 +1,4 @@
-import { CoolConfig } from '@cool-midway/core';
+import { CoolConfig, MODETYPE } from "@cool-midway/core";
 import { MidwayConfig } from '@midwayjs/core';
 
 /**
@@ -37,6 +37,12 @@ export default {
     crud: {
       // 软删除
       softDelete: true,
+    },
+    file: {
+      // 上传模式 本地上传或云存储
+      mode: MODETYPE.LOCAL,
+      // 本地上传 文件地址前缀
+      domain: 'http://127.0.0.1:8001',
     },
   } as CoolConfig,
 } as MidwayConfig;
