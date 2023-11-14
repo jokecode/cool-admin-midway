@@ -13,11 +13,11 @@ services:
     image: 'jsq_web:1.0.0'
     ports:
       - '9001:9001'
-    volumes:
-      - "./nginx.conf:/etc/nginx/nginx.conf"
-      - "/var/cache/nginx/"
-      - "/var/run/"
-      - "/logs/"
+#    volumes:
+#      - "./nginx.conf:/etc/nginx/nginx.conf"
+#      - "/var/cache/nginx/"
+#      - "/var/run/"
+#      - "/logs/"
     restart: always
     logging:
       driver: "json-file"
@@ -36,6 +36,8 @@ services:
     ports:
       - '8002:8002'
     restart: always
+    volumes:
+      - "./public/uploads:/app/public/uploads"
     logging:
       driver: "json-file"
       options:
