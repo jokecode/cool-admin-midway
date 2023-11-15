@@ -134,7 +134,7 @@ export class AdminFeatureController extends BaseController {
    * 图表操作（图像对比页面中echarts的图表操作按钮）
    *
    */
-  @Post('/chartOperations', { summary: '图表操作(仅用于权限校验)' })
+  @Post('/chartOperations', { summary: '图表数据下载(仅用于权限校验)' })
   async chartOperations() {
     return this.ok();
   }
@@ -144,7 +144,7 @@ export class AdminFeatureController extends BaseController {
    * 自定义列按钮
    *
    */
-  @Post('/customColumns', { summary: '图表操作(仅用于权限校验)' })
+  @Post('/customColumns', { summary: '自定义列(仅用于权限校验)' })
   async customColumns() {
     return this.ok();
   }
