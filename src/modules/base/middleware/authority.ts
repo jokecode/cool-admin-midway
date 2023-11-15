@@ -33,7 +33,12 @@ export class BaseAuthorityMiddleware
       const token = ctx.get('Authorization');
       const adminUrl = '/admin/';
       //忽略token验证的url
-      const ignoreUrls = [];
+      const ignoreUrls = [
+        // 参数列表查询接口的权限校验
+        '/admin/base/sys/param/list',
+        // 查看附件详情
+        '/admin/signal/attachment/info',
+      ];
       // 路由地址为 admin前缀的 需要权限校验
       if (_.startsWith(url, adminUrl)) {
         try {
@@ -50,7 +55,7 @@ export class BaseAuthorityMiddleware
         // 不需要登录 无需权限校验
         if (
           new RegExp(`^${adminUrl}?.*/open/`).test(url) ||
-          ignoreUrls.includes(url)
+          ignoreUrls.includes(url.split('?')[0])
         ) {
           await next();
           return;
