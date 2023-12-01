@@ -107,7 +107,8 @@ export class AdminFeatureController extends BaseController {
     summary: '模板下载-示波器数据导入模板(仅用于权限校验)',
   })
   async downloadTemplate() {
-    return this.ok(`${this.config.domain}/public/template/2302230004.csv`);
+    return this.ok(`/public/uploads/template/2302230004.csv`);
+    // return this.ok(`${this.config.domain}/public/template/2302230004.csv`);
   }
 
   /**
