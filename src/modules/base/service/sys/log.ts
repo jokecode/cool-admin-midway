@@ -2,7 +2,6 @@ import { Inject, Provide } from '@midwayjs/decorator';
 import { BaseService } from '@cool-midway/core';
 import { InjectEntityModel } from '@midwayjs/typeorm';
 import { Repository } from 'typeorm';
-import * as _ from 'lodash';
 import { BaseSysLogEntity } from '../../entity/sys/log';
 import * as moment from 'moment';
 import { Utils } from '../../../../comm/utils';
@@ -41,7 +40,10 @@ export class BaseSysLogService extends BaseService {
     for (const e of sysLog.ip.split(','))
       ipAddrArr.push(await await this.utils.getIpAddr(context, e));
     sysLog.ipAddr = ipAddrArr.join(',');
-    sysLog.action = url.split('?')[0];
+    sysLog.action =
+      url.split('?')[0].length >= 100
+        ? url.split('?')[0].substring(0, 100)
+        : url.split('?')[0];
     sysLog.params = params;
     await this.baseSysLogEntity.insert(sysLog);
   }
