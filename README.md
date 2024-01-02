@@ -1,45 +1,9 @@
-<p align="center">
-  <a href="https://midwayjs.org/" target="blank"><img src="https://cool-show.oss-cn-shanghai.aliyuncs.com/admin/logo.png" width="200" alt="Midway Logo" /></a>
-</p>
-
-<p align="center">cool-admin(midway版)一个很酷的后台权限管理系统，开源免费，模块化、插件化、极速开发CRUD，方便快速构建迭代后台管理系统，支持serverless、docker、普通服务器等多种方式部署
-到 <a href="https://cool-js.com" target="_blank">文档</a> 进一步了解
-<p align="center">
-    <a href="https://github.com/cool-team-official/cool-admin-midway/blob/master/LICENSE" target="_blank"><img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="GitHub license" />
-    <a href=""><img src="https://img.shields.io/github/package-json/v/cool-team-official/cool-admin-midway?style=flat-square" alt="GitHub tag"></a>
-    <img src="https://img.shields.io/github/last-commit/cool-team-official/cool-admin-midway?style=flat-square" alt="GitHub tag"></a>
-</p>
+## 特征信号知识图谱
 
 ## 技术栈
 
 - 后端：**`node.js` `midway.js` `egg.js` `mysql` `typescript`**
 - 前端：**`vue.js` `element-plus` `jsx` `pinia` `vue-router`**
-
-如果你是前端，后端的这些技术选型对你是特别友好的，前端开发者可以较快速地上手。
-如果你是后端，Typescript 的语法又跟 java、php 等特别类似，一切看起来也是那么得熟悉。
-
-<!-- 在此次添加使用文档 -->
-
-## 演示
-
-[https://show.cool-admin.com](https://show.cool-admin.com)
-
-- 账户：admin
-- 密码：123456
-
-<img src="https://cool-show.oss-cn-shanghai.aliyuncs.com/admin/home-mini.png" alt="Admin Home"></a>
-
-#### 文档
-
-[https://admin.cool-js.com](https://admin.cool-js.com)
-
-#### 项目前端
-
-[https://github.com/cool-team-official/cool-admin-vue](https://github.com/cool-team-official/cool-admin-vue)
-
-## 微信群
-
-<img width="260" src="https://cool-show.oss-cn-shanghai.aliyuncs.com/admin/wechat.jpeg?v=1" alt="Admin Wechat"></a>
 
 ## 运行
 
@@ -159,6 +123,21 @@ $ npm stop
 
 [midway]: https://midwayjs.org
 
-### 低价服务器
+## 演示
 
-[阿里云、腾讯云、华为云低价云服务器，不限新老](https://cool-js.com/ad/server.html)
+[https://show.cool-admin.com](https://show.cool-admin.com)
+
+- 账户：admin
+- 密码：123456
+
+<img src="https://cool-show.oss-cn-shanghai.aliyuncs.com/admin/home-mini.png" alt="Admin Home"></a>
+
+#### 项目前端
+
+[https://github.com/cool-team-official/cool-admin-vue](https://github.com/cool-team-official/cool-admin-vue)
+
+#### 框架参考文档
+
+[https://admin.cool-js.com](https://admin.cool-js.com)
+
+[https://cool-js.com](https://cool-js.com)
